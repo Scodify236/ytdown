@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elegant Audio Downloader</title>
+    <title>Elegant Audio/Video Downloader</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #6366f1;
             --primary-hover: #4f46e5;
+            --success-color: #22c55e;
+            --success-hover: #16a34a;
+            --video-color: #ef4444;
+            --video-hover: #dc2626;
             --bg-gradient: linear-gradient(135deg, #f6f7ff 0%, #ffffff 100%);
             --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             --text-primary: #1e293b;
@@ -19,6 +23,10 @@
         body.dark-mode {
             --primary-color: #818cf8;
             --primary-hover: #6366f1;
+            --success-color: #22c55e;
+            --success-hover: #16a34a;
+            --video-color: #ef4444;
+            --video-hover: #dc2626;
             --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             --text-primary: #f1f5f9;
@@ -117,15 +125,43 @@
             transform: translateY(-1px);
         }
 
-        #downloadButton {
+        .download-buttons {
             display: none;
-            text-decoration: none;
-            background: #22c55e;
+            gap: 1rem;
             margin-top: 1rem;
         }
 
-        #downloadButton:hover {
-            background: #16a34a;
+        .download-link {
+            text-decoration: none;
+            padding: 1rem;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        #audioButton {
+            background: var(--success-color);
+        }
+
+        #audioButton:hover {
+            background: var(--success-hover);
+            transform: translateY(-1px);
+        }
+
+        #videoButton {
+            background: var(--video-color);
+        }
+
+        #videoButton:hover {
+            background: var(--video-hover);
+            transform: translateY(-1px);
         }
 
         #themeToggle {
@@ -175,23 +211,29 @@
     </button>
 
     <div class="container">
-        <h1>Audio Downloader</h1>
-        <p class="subtitle">Download your favorite YouTube videos as MP3</p>
+        <h1>Media Downloader</h1>
+        <p class="subtitle">Download YouTube videos as MP3 or MP4</p>
         
         <div class="input-group">
             <input type="text" id="videoUrl" placeholder="Paste YouTube URL here" />
         </div>
         
-        <button onclick="fetchAudioLink()" id="fetchButton">
+        <button onclick="fetchMediaLinks()" id="fetchButton">
             <i class="fas fa-download"></i>
-            <span>Get Download Link</span>
+            <span>Get Download Links</span>
             <div class="loader"></div>
         </button>
         
-        <a id="downloadButton" href="#" download target="_blank">
-            <i class="fas fa-music"></i>
-            <span>Download Audio</span>
-        </a>
+        <div class="download-buttons" id="downloadButtons">
+            <a id="audioButton" class="download-link" href="#" download target="_blank">
+                <i class="fas fa-music"></i>
+                <span>Download Audio</span>
+            </a>
+            <a id="videoButton" class="download-link" href="#" download target="_blank">
+                <i class="fas fa-video"></i>
+                <span>Download Video</span>
+            </a>
+        </div>
     </div>
 
     <script>
@@ -204,9 +246,9 @@
             themeIcon.classList.toggle('fa-sun');
         }
 
-        async function fetchAudioLink() {
+        async function fetchMediaLinks() {
             const videoUrl = document.getElementById('videoUrl').value;
-            const downloadButton = document.getElementById('downloadButton');
+            const downloadButtons = document.getElementById('downloadButtons');
             const fetchButton = document.getElementById('fetchButton');
             const loader = document.querySelector('.loader');
             
@@ -219,9 +261,11 @@
             fetchButton.disabled = true;
             loader.style.display = 'block';
             fetchButton.querySelector('span').textContent = 'Processing...';
+            downloadButtons.style.display = 'none';
 
             try {
-                const response = await fetch('https://api.cobalt.tools/api/json', {
+                // Fetch audio version
+                const audioResponse = await fetch('https://api.cobalt.tools/api/json', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -235,19 +279,36 @@
                     }),
                 });
 
-                if (!response.ok) {
-                    throw new Error('Network response was not ok: ' + response.statusText);
+                // Fetch video version
+                const videoResponse = await fetch('https://api.cobalt.tools/api/json', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        url: videoUrl,
+                        videoQuality: "1080"
+                    }),
+                });
+
+                if (!audioResponse.ok || !videoResponse.ok) {
+                    throw new Error('Network response was not ok');
                 }
 
-                const data = await response.json();
-                const audioLink = data.audio || data.url || '';
+                const audioData = await audioResponse.json();
+                const videoData = await videoResponse.json();
 
-                if (audioLink) {
-                    downloadButton.href = audioLink;
-                    downloadButton.style.display = 'flex';
-                    downloadButton.classList.add('success-animation');
+                const audioLink = audioData.audio || audioData.url;
+                const videoLink = videoData.video || videoData.url;
+
+                if (audioLink && videoLink) {
+                    document.getElementById('audioButton').href = audioLink;
+                    document.getElementById('videoButton').href = videoLink;
+                    downloadButtons.style.display = 'flex';
+                    downloadButtons.classList.add('success-animation');
                 } else {
-                    throw new Error('No audio link available');
+                    throw new Error('No download links available');
                 }
             } catch (error) {
                 alert('Error: ' + error.message);
@@ -255,7 +316,7 @@
                 // Reset button state
                 fetchButton.disabled = false;
                 loader.style.display = 'none';
-                fetchButton.querySelector('span').textContent = 'Get Download Link';
+                fetchButton.querySelector('span').textContent = 'Get Download Links';
             }
         }
     </script>
