@@ -3,34 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elegant Audio/Video Downloader</title>
+    <title>Cyber Media Downloader</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #6366f1;
-            --primary-hover: #4f46e5;
-            --success-color: #22c55e;
-            --success-hover: #16a34a;
-            --video-color: #ef4444;
-            --video-hover: #dc2626;
-            --bg-gradient: linear-gradient(135deg, #f6f7ff 0%, #ffffff 100%);
-            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        body.dark-mode {
-            --primary-color: #818cf8;
-            --primary-hover: #6366f1;
-            --success-color: #22c55e;
-            --success-hover: #16a34a;
-            --video-color: #ef4444;
-            --video-hover: #dc2626;
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
+            --neon-primary: #0ff;
+            --neon-secondary: #f0f;
+            --bg-dark: #0a0a0f;
+            --card-bg: #151520;
+            --text-primary: #e0e0ff;
+            --text-secondary: #8888aa;
+            --accent-gradient: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary));
         }
 
         * {
@@ -40,67 +23,83 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            min-height: 100vh;
-            background: var(--bg-gradient);
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
             color: var(--text-primary);
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .split-container {
+            display: flex;
+            width: 100%;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .main-content {
+            flex: 1;
+            max-width: 500px;
+            padding: 2rem;
+        }
+
+        .visual-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            transition: var(--transition);
-            padding: 1rem;
+            justify-content: center;
+            position: relative;
         }
 
         .container {
-            width: 100%;
-            max-width: 480px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: var(--card-bg);
             border-radius: 24px;
-            box-shadow: var(--card-shadow);
             padding: 2.5rem;
-            transition: var(--transition);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            animation: glowPulse 4s infinite;
         }
 
-        body.dark-mode .container {
-            background: rgba(30, 41, 59, 0.95);
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.1); }
+            50% { box-shadow: 0 0 30px rgba(0, 255, 255, 0.2); }
         }
 
         h1 {
-            font-size: 2rem;
-            font-weight: 700;
+            font-size: 2.5rem;
+            font-weight: 800;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
         }
 
         .subtitle {
             color: var(--text-secondary);
-            font-size: 0.875rem;
+            font-size: 1rem;
             margin-bottom: 2rem;
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 1.5rem;
         }
 
         input {
             width: 100%;
             padding: 1rem 1.25rem;
-            border: 2px solid #e2e8f0;
+            border: 1px solid rgba(0, 255, 255, 0.2);
             border-radius: 12px;
             font-size: 1rem;
-            background: transparent;
+            background: rgba(0, 0, 0, 0.3);
             color: var(--text-primary);
-            transition: var(--transition);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
         }
 
         input:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            border-color: var(--neon-primary);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
         }
 
         button {
@@ -108,21 +107,17 @@
             padding: 1rem;
             border: none;
             border-radius: 12px;
-            background: var(--primary-color);
+            background: var(--accent-gradient);
             color: white;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+            transition: all 0.3s ease;
         }
 
         button:hover {
-            background: var(--primary-hover);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
         }
 
         .download-buttons {
@@ -136,48 +131,75 @@
             padding: 1rem;
             border-radius: 12px;
             color: white;
-            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            flex: 1;
         }
 
         #audioButton {
-            background: var(--success-color);
-        }
-
-        #audioButton:hover {
-            background: var(--success-hover);
-            transform: translateY(-1px);
+            background: linear-gradient(135deg, #00ff87, #0ff);
         }
 
         #videoButton {
-            background: var(--video-color);
+            background: linear-gradient(135deg, #ff00ff, #ff0080);
         }
 
-        #videoButton:hover {
-            background: var(--video-hover);
-            transform: translateY(-1px);
+        .download-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
         }
 
-        #themeToggle {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            width: auto;
-            background: transparent;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            padding: 0.5rem;
+        /* Animation Elements */
+        .cyber-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid var(--neon-primary);
+            opacity: 0.2;
+            animation: rotate 20s linear infinite;
         }
 
-        #themeToggle:hover {
-            transform: rotate(15deg);
-            background: transparent;
+        .cyber-circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            border-color: var(--neon-primary);
+        }
+
+        .cyber-circle:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            border-color: var(--neon-secondary);
+            animation-direction: reverse;
+        }
+
+        .conversion-animation {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 2rem 0;
+        }
+
+        .icon-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--neon-primary);
+            animation: iconPulse 4s infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { opacity: 0.5; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1.05); }
         }
 
         .loader {
@@ -194,58 +216,56 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        .success-animation {
-            animation: scaleUp 0.3s ease-out;
-        }
-
-        @keyframes scaleUp {
-            0% { transform: scale(0.95); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
     </style>
 </head>
 <body>
-    <button id="themeToggle" onclick="toggleTheme()">
-        <i class="fas fa-moon"></i>
-    </button>
-
-    <div class="container">
-        <h1>Media Downloader</h1>
-        <p class="subtitle">Download YouTube videos as MP3 or MP4</p>
-        
-        <div class="input-group">
-            <input type="text" id="videoUrl" placeholder="Paste YouTube URL here" />
+    <div class="split-container">
+        <div class="main-content">
+            <div class="container">
+                <h1>Cyber Downloader</h1>
+                <p class="subtitle">Transform YouTube content into digital artifacts</p>
+                
+                <div class="input-group">
+                    <input type="text" id="videoUrl" placeholder="Insert YouTube neural link" />
+                </div>
+                
+                <button onclick="fetchMediaLinks()" id="fetchButton">
+                    <i class="fas fa-download"></i>
+                    <span>Initialize Download Sequence</span>
+                    <div class="loader"></div>
+                </button>
+                
+                <div class="download-buttons" id="downloadButtons">
+                    <a id="audioButton" class="download-link" href="#" download target="_blank">
+                        <i class="fas fa-music"></i>
+                        <span>Extract Audio</span>
+                    </a>
+                    <a id="videoButton" class="download-link" href="#" download target="_blank">
+                        <i class="fas fa-video"></i>
+                        <span>Download Video</span>
+                    </a>
+                </div>
+            </div>
         </div>
-        
-        <button onclick="fetchMediaLinks()" id="fetchButton">
-            <i class="fas fa-download"></i>
-            <span>Get Download Links</span>
-            <div class="loader"></div>
-        </button>
-        
-        <div class="download-buttons" id="downloadButtons">
-            <a id="audioButton" class="download-link" href="#" download target="_blank">
-                <i class="fas fa-music"></i>
-                <span>Download Audio</span>
-            </a>
-            <a id="videoButton" class="download-link" href="#" download target="_blank">
-                <i class="fas fa-video"></i>
-                <span>Download Video</span>
-            </a>
+
+        <div class="visual-content">
+            <div class="cyber-circle"></div>
+            <div class="cyber-circle"></div>
+            <div class="conversion-animation">
+                <div class="icon-container">
+                    <i class="fab fa-youtube"></i>
+                </div>
+                <div class="icon-container" style="opacity: 0.5;">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="icon-container">
+                    <i class="fas fa-file-audio"></i>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        function toggleTheme() {
-            const body = document.body;
-            const themeIcon = document.querySelector('#themeToggle i');
-            
-            body.classList.toggle('dark-mode');
-            themeIcon.classList.toggle('fa-moon');
-            themeIcon.classList.toggle('fa-sun');
-        }
-
         async function fetchMediaLinks() {
             const videoUrl = document.getElementById('videoUrl').value;
             const downloadButtons = document.getElementById('downloadButtons');
@@ -257,14 +277,12 @@
                 return;
             }
 
-            // Show loading state
             fetchButton.disabled = true;
             loader.style.display = 'block';
-            fetchButton.querySelector('span').textContent = 'Processing...';
+            fetchButton.querySelector('span').textContent = 'Initializing...';
             downloadButtons.style.display = 'none';
 
             try {
-                // Fetch audio version
                 const audioResponse = await fetch('https://api.cobalt.tools/api/json', {
                     method: 'POST',
                     headers: {
@@ -279,7 +297,6 @@
                     }),
                 });
 
-                // Fetch video version
                 const videoResponse = await fetch('https://api.cobalt.tools/api/json', {
                     method: 'POST',
                     headers: {
@@ -306,17 +323,15 @@
                     document.getElementById('audioButton').href = audioLink;
                     document.getElementById('videoButton').href = videoLink;
                     downloadButtons.style.display = 'flex';
-                    downloadButtons.classList.add('success-animation');
                 } else {
                     throw new Error('No download links available');
                 }
             } catch (error) {
                 alert('Error: ' + error.message);
             } finally {
-                // Reset button state
                 fetchButton.disabled = false;
                 loader.style.display = 'none';
-                fetchButton.querySelector('span').textContent = 'Get Download Links';
+                fetchButton.querySelector('span').textContent = 'Initialize Download Sequence';
             }
         }
     </script>
