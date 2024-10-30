@@ -58,6 +58,15 @@
                 flex-direction: column;
                 padding: 1rem;
             }
+            .main-content {
+                padding: 1rem;
+            }
+            .visual-content {
+                display: none;
+            }
+            .download-buttons {
+                flex-direction: column;
+            }
         }
 
         .main-content {
@@ -68,12 +77,6 @@
             width: 100%;
         }
 
-        @media (max-width: 768px) {
-            .main-content {
-                padding: 1rem;
-            }
-        }
-
         .visual-content {
             flex: 1;
             display: flex;
@@ -81,12 +84,6 @@
             align-items: center;
             justify-content: center;
             position: relative;
-        }
-
-        @media (max-width: 768px) {
-            .visual-content {
-                display: none;
-            }
         }
 
         .container {
@@ -245,10 +242,22 @@
             animation: fadeIn 0.5s ease-out;
         }
 
-        @media (max-width: 480px) {
-            .download-buttons {
-                flex-direction: column;
-            }
+        .download-process {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 1rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .download-process-text {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .download-process-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
         }
 
         .download-link {
@@ -396,10 +405,17 @@
                 
                 <button onclick="fetchMediaLinks()" id="fetchButton">
                     <i class="fas fa-download"></i>
-                    <span>Initialize Download Sequence</span>
+                    <span>Fetch</span>
                     <div class="loader"></div>
                 </button>
                 
+                <div class="download-process" id="downloadProcess">
+                    <div class="download-process-text">Initializing...</div>
+                    <div class="download-process-icon">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                </div>
+
                 <div class="download-buttons" id="downloadButtons">
                     <a id="audioButton" class="download-link" href="#" download target="_blank">
                         <i class="fas fa-music"></i>
@@ -432,59 +448,58 @@
     </div>
 
     <script>
-        // Matrix Rain Effect
-        const canvas = document.getElementById('matrix-rain');
-        const ctx = canvas.getContext('2d');
+    // Matrix Rain Effect
+    const canvas = document.getElementById('matrix-rain');
+    const ctx = canvas.getContext('2d');
 
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const nums = '0123456789';
+    const alphabet = katakana + latin + nums;
+
+    const fontSize = 16;
+    const columns = canvas.width/fontSize;
+
+    const rainDrops = [];
+
+    for( let x = 0; x < columns; x++ ) {
+        rainDrops[x] = 1;
+    }
+
+    function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#0F0';
+        ctx.font = fontSize + 'px monospace';
+
+        for(let i = 0; i < rainDrops.length; i++) {
+            const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+            ctx.fillText(text, i*fontSize, rainDrops[i]*fontSize);
+
+            if(rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975) {
+                rainDrops[i] = 0;
+            }
+            rainDrops[i]++;
+        }
+    }
+
+    setInterval(draw, 30);
+
+    window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+    });
+    async function fetchMediaLinks() {
+        const videoUrl = document.getElementById('videoUrl').value;
+        const downloadButtons = document.getElementById('downloadButtons');
+        const fetchButton = document.getElementById('fetchButton');
+        const downloadProcess = document.getElementById('downloadProcess');
+        const loader = document.querySelector('.loader');
 
-        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
-        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const nums = '0123456789';
-        const alphabet = katakana + latin + nums;
-
-        const fontSize = 16;
-        const columns = canvas.width/fontSize;
-
-        const rainDrops = [];
-
-        for( let x = 0; x < columns; x++ ) {
-            rainDrops[x] = 1;
-        }
-
-        function draw() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#0F0';
-            ctx.font = fontSize + 'px monospace';
-
-            for(let i = 0; i < rainDrops.length; i++) {
-                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                ctx.fillText(text, i*fontSize, rainDrops[i]*fontSize);
-
-                if(rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975) {
-                    rainDrops[i] = 0;
-                }
-                rainDrops[i]++;
-            }
-        }
-
-        setInterval(draw, 30);
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Download functionality
-        async function fetchMediaLinks() {
-            const videoUrl = document.getElementById('videoUrl').value;
-            const downloadButtons = document.getElementById('downloadButtons');
-            const fetchButton = document.getElementById('fetchButton');
-            loader = document.querySelector('.loader');
-        
         if (!videoUrl) {
             alert('Please enter a YouTube URL');
             return;
@@ -494,6 +509,7 @@
         loader.style.display = 'block';
         fetchButton.querySelector('span').textContent = 'Initializing...';
         downloadButtons.style.display = 'none';
+        downloadProcess.style.display = 'flex';
 
         try {
             const audioResponse = await fetch('https://api.cobalt.tools/api/json', {
@@ -535,20 +551,30 @@
             const videoLink = videoData.video || videoData.url;
 
             if (audioLink && videoLink) {
+                downloadProcess.querySelector('.download-process-text').textContent = 'Getting your download approved by Shashwat...';
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                downloadProcess.querySelector('.download-process-text').textContent = 'Getting your download approved by Sundar Pichai...';
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                downloadProcess.querySelector('.download-process-text').textContent = 'Getting your download approved by Bill Gates...';
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                downloadProcess.querySelector('.download-process-text').textContent = 'Your download was approved by all!';
+                downloadProcess.querySelector('.download-process-icon').innerHTML = '<i class="fas fa-check"></i>';
+
                 document.getElementById('audioButton').href = audioLink;
                 document.getElementById('videoButton').href = videoLink;
                 downloadButtons.style.display = 'flex';
+                downloadProcess.style.display = 'none';
             } else {
                 throw new Error('No download links available');
             }
         } catch (error) {
+            downloadProcess.querySelector('.download-process-text').textContent = 'Your download was not approved. Please retry.';
+            downloadProcess.querySelector('.download-process-icon').innerHTML = '<i class="fas fa-times"></i>';
             alert('Error: ' + error.message);
         } finally {
             fetchButton.disabled = false;
             loader.style.display = 'none';
-            fetchButton.querySelector('span').textContent = 'Initialize Download Sequence';
+            fetchButton.querySelector('span').textContent = 'Fetch';
         }
     }
 </script>
-</body>
-</html>
