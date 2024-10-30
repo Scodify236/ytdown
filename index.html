@@ -506,7 +506,8 @@
                     url: videoUrl,
                     aFormat: "mp3",
                     isAudioOnly: true,
-                    audioBitrate: 96000
+                    audioBitrate: 96000,
+                    filenameStyle: "basic"
                 }),
             });
 
@@ -518,7 +519,8 @@
                 },
                 body: JSON.stringify({
                     url: videoUrl,
-                    videoQuality: "1080"
+                    videoQuality: "1080",
+                    filenameStyle: "basic"
                 }),
             });
 
