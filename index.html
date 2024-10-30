@@ -3,114 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ytdown-Shashwat</title>
+    <title>Premium Audio Downloader</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+
         :root {
-            --bg-color: #f0f0f0;
-            --container-bg: white;
-            --text-color: #333;
-            --primary-color: #ff0000;
-            --primary-hover: #cc0000;
-            --secondary-color: #4CAF50;
-            --secondary-hover: #45a049;
+            --primary: #030711;
+            --secondary: #0f172a;
+            --accent: #a67c00;
+            --gold: #d4af37;
+            --text: #fff;
+            --background: linear-gradient(135deg, #030711 0%, #0f172a 100%);
         }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            transition: background-color 0.3s, color 0.3s;
         }
+
         .container {
-            background-color: var(--container-bg);
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .header {
             text-align: center;
-            max-width: 400px;
-            width: 90%;
+            margin-bottom: 4rem;
+            position: relative;
         }
-        h1 {
-            color: var(--primary-color);
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+            opacity: 0.1;
+            transform: translate(-50%, -50%);
+            filter: blur(40px);
+            pointer-events: none;
+        }
+
+        .header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            color: var(--text);
             margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+            position: relative;
         }
+
+        .header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .download-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, 
+                                    rgba(255, 255, 255, 0.1), 
+                                    transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .download-card:hover::before {
+            opacity: 1;
+        }
+
         input {
             width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
         }
-        button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0.75rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 1rem;
+
+        input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        button, #downloadButton {
             width: 100%;
-        }
-        button:hover {
-            background-color: var(--primary-hover);
-        }
-        #downloadButton {
-            display: none;
-            margin-top: 1rem;
-            background-color: var(--secondary-color);
-            text-decoration: none;
-            color: white;
-            padding: 0.75rem 1rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-            font-size: 1rem;
-        }
-        #downloadButton:hover {
-            background-color: var(--secondary-hover);
-        }
-        #themeToggle {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            color: var(--text-color);
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
-            font-size: 1.5rem;
+            letter-spacing: 0.5px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-decoration: none;
+            display: block;
         }
-        body.dark-mode {
-            --bg-color: #121212;
-            --container-bg: #1e1e1e;
-            --text-color: #e0e0e0;
-            --primary-color: #ff4545;
-            --primary-hover: #ff6b6b;
-            --secondary-color: #4ecb71;
-            --secondary-hover: #45b563;
+
+        button {
+            background: linear-gradient(135deg, var(--gold), #8b6b00);
+            color: var(--primary);
+            border: none;
+        }
+
+        #downloadButton {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            display: none;
+        }
+
+        button:hover, #downloadButton:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(166, 124, 0, 0.3);
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #d4af37, #a67c00);
+        }
+
+        #downloadButton:hover {
+            background: rgba(166, 124, 0, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .download-card {
+                padding: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <button id="themeToggle" onclick="toggleTheme()">🌓</button>
     <div class="container">
-        <h1>YouTube Audio Downloader</h1>
-        <h5>Made with ❤️ made by Shashwat</h5>
-        <input type="text" id="videoUrl" placeholder="Enter YouTube video URL" />
-        <button onclick="fetchAudioLink()">Get Download Link</button>
-        <a id="downloadButton" href="#" download target="_blank">Download Audio</a>
+        <div class="download-card">
+            <header class="header">
+                <h1>Audio Converter</h1>
+                <p>Transform your favorite content into premium audio experiences</p>
+            </header>
+            <input type="text" id="videoUrl" placeholder="Enter your YouTube URL here" />
+            <button onclick="fetchAudioLink()">Convert to Audio</button>
+            <a id="downloadButton" href="#" download target="_blank">Download Audio</a>
+        </div>
     </div>
 
     <script>
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-        }
-
         async function fetchAudioLink() {
             const videoUrl = document.getElementById('videoUrl').value;
             const downloadButton = document.getElementById('downloadButton');
