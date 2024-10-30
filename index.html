@@ -496,7 +496,7 @@
         downloadButtons.style.display = 'none';
 
         try {
-            const audioResponse = await fetch('https://api.cobalt.tools/api/json', {
+            const audioResponse = await fetch('https://api.cobalt.tools/', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -511,7 +511,7 @@
                 }),
             });
 
-            const videoResponse = await fetch('https://api.cobalt.tools/api/json', {
+            const videoResponse = await fetch('https://api.cobalt.tools/', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
