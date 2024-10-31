@@ -13,6 +13,7 @@
             --card-bg: #151520;
             --text-primary: #e0e0ff;
             --text-secondary: #8888aa;
+            --terminal-bg: rgba(0, 0, 0, 0.9);
             --accent-gradient: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary));
         }
 
@@ -23,7 +24,7 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Courier New', monospace;
             background: var(--bg-dark);
             color: var(--text-primary);
             min-height: 100vh;
@@ -32,263 +33,128 @@
             position: relative;
         }
 
-        /* Matrix Rain Effect */
-        #matrix-rain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.15;
-        }
-
         .split-container {
             display: flex;
             width: 100%;
-            padding: 2rem;
-            gap: 2rem;
+            padding: 1rem;
+            gap: 1rem;
             position: relative;
             z-index: 1;
         }
 
-        @media (max-width: 768px) {
-            .split-container {
-                flex-direction: column;
-                padding: 1rem;
-            }
-            .main-content {
-                padding: 1rem;
-            }
-            .visual-content {
-                display: none;
-            }
-            .download-buttons {
-                flex-direction: column;
-            }
-        }
-
         .main-content {
             flex: 1;
-            max-width: 500px;
-            padding: 2rem;
+            max-width: 600px;
+            padding: 1rem;
             margin: 0 auto;
             width: 100%;
         }
 
-        .visual-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
         .container {
             background: var(--card-bg);
-            border-radius: 24px;
-            padding: 2.5rem;
+            border-radius: 12px;
+            padding: 1.5rem;
             border: 1px solid rgba(0, 255, 255, 0.1);
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            animation: glowPulse 4s infinite;
             position: relative;
             overflow: hidden;
         }
 
-        /* Glitch Effect */
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(0, 255, 255, 0.2),
-                transparent
-            );
-            animation: glitch 3s infinite;
-        }
-
-        @keyframes glitch {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 100%;
-            }
-        }
-
-        @keyframes glowPulse {
-            0%, 100% { 
-                box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
-                transform: scale(1);
-            }
-            50% { 
-                box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
-                transform: scale(1.02);
-            }
-        }
-
         h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 800;
             margin-bottom: 0.5rem;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--neon-primary);
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
-            position: relative;
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2rem;
-            }
         }
 
         .subtitle {
             color: var(--text-secondary);
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.5s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
         }
 
         input {
             width: 100%;
-            padding: 1rem 1.25rem;
+            padding: 0.75rem;
             border: 1px solid rgba(0, 255, 255, 0.2);
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
             background: rgba(0, 0, 0, 0.3);
             color: var(--text-primary);
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+            font-family: 'Courier New', monospace;
         }
 
         input:focus {
             outline: none;
             border-color: var(--neon-primary);
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-            transform: scale(1.02);
         }
 
         button {
             width: 100%;
-            padding: 1rem;
+            padding: 0.75rem;
             border: none;
-            border-radius: 12px;
+            border-radius: 6px;
             background: var(--accent-gradient);
             color: white;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            font-family: 'Courier New', monospace;
         }
 
-        button::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(255, 255, 255, 0.1),
-                transparent
-            );
-            transform: rotate(45deg);
-            animation: buttonGlow 2s linear infinite;
+        .cli-terminal {
+            display: none;
+            background: var(--terminal-bg);
+            border: 1px solid var(--neon-primary);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #0f0;
+            max-height: 200px;
+            overflow-y: auto;
         }
 
-        @keyframes buttonGlow {
-            0% {
-                transform: rotate(45deg) translateX(-100%);
-            }
-            100% {
-                transform: rotate(45deg) translateX(100%);
-            }
+        .cli-line {
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: flex-start;
         }
 
-        button:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        .cli-prompt {
+            color: var(--neon-primary);
+            margin-right: 0.5rem;
+        }
+
+        .cli-text {
+            flex: 1;
         }
 
         .download-buttons {
             display: none;
-            gap: 1rem;
+            gap: 0.5rem;
             margin-top: 1rem;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .download-process {
-            display: none;
             flex-direction: column;
-            align-items: center;
-            margin-top: 1rem;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .download-process-text {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .download-process-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
         }
 
         .download-link {
             text-decoration: none;
-            padding: 1rem;
-            border-radius: 12px;
+            padding: 0.75rem;
+            border-radius: 6px;
             color: white;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
             text-align: center;
-            flex: 1;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .download-link::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(255, 255, 255, 0.1),
-                transparent
-            );
-            transform: rotate(45deg);
-            animation: buttonGlow 2s linear infinite;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         #audioButton {
@@ -299,219 +165,103 @@
             background: linear-gradient(135deg, #ff00ff, #ff0080);
         }
 
-        .download-link:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+        .blink {
+            animation: blink 1s step-end infinite;
         }
 
-        /* Enhanced Animation Elements */
-        .cyber-circle {
-            position: absolute;
-            border-radius: 50%;
-            border: 2px solid var(--neon-primary);
-            opacity: 0.2;
-            animation: rotate 20s linear infinite;
+        @keyframes blink {
+            50% { opacity: 0; }
         }
 
-        .cyber-circle:nth-child(1) {
-            width: 300px;
-            height: 300px;
-            border-color: var(--neon-primary);
-        }
-
-        .cyber-circle:nth-child(2) {
-            width: 200px;
-            height: 200px;
-            border-color: var(--neon-secondary);
-            animation-direction: reverse;
-        }
-
-        .cyber-circle:nth-child(3) {
-            width: 150px;
-            height: 150px;
-            border-color: #00ff87;
-            animation-duration: 15s;
-        }
-
-        .conversion-animation {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 2rem 0;
-        }
-
-        .icon-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: var(--neon-primary);
-            animation: iconPulse 4s infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes iconPulse {
-            0%, 100% { 
-                opacity: 0.5; 
-                transform: scale(0.95); 
-                filter: drop-shadow(0 0 5px var(--neon-primary));
+        @media (max-width: 768px) {
+            .split-container {
+                flex-direction: column;
             }
-            50% { 
-                opacity: 1; 
-                transform: scale(1.05);
-                filter: drop-shadow(0 0 15px var(--neon-primary));
+            
+            .visual-content {
+                display: none;
             }
-        }
 
-        .loader {
-            display: none;
-            width: 1.25rem;
-            height: 1.25rem;
-            border: 3px solid #ffffff;
-            border-bottom-color: transparent;
-            border-radius: 50%;
-            animation: rotation 1s linear infinite;
-        }
+            h1 {
+                font-size: 1.5rem;
+            }
 
-        @keyframes rotation {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            .container {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <canvas id="matrix-rain"></canvas>
     <div class="split-container">
         <div class="main-content">
             <div class="container">
-                <h1>Cyber Downloader</h1>
-                <p class="subtitle">Transform YouTube content into digital artifacts</p>
+                <h1>> CYBER DOWNLOADER_</h1>
+                <p class="subtitle">> Transform YouTube content into digital artifacts</p>
                 
-                <div class="input-group">
-                    <input type="text" id="videoUrl" placeholder="Insert YouTube neural link" />
-                </div>
+                <input type="text" id="videoUrl" placeholder="> Insert YouTube neural link" />
                 
                 <button onclick="fetchMediaLinks()" id="fetchButton">
-                    <i class="fas fa-download"></i>
-                    <span>Fetch</span>
-                    <div class="loader"></div>
+                    <i class="fas fa-terminal"></i> EXECUTE
                 </button>
-                
-                <div class="download-process" id="downloadProcess">
-                    <div class="download-process-text">Initializing...</div>
-                    <div class="download-process-icon">
-                        <i class="fas fa-spinner fa-spin"></i>
+
+                <div class="cli-terminal" id="cliTerminal">
+                    <div class="cli-line">
+                        <span class="cli-prompt">></span>
+                        <span class="cli-text">Initializing system...<span class="blink">_</span></span>
                     </div>
                 </div>
 
                 <div class="download-buttons" id="downloadButtons">
                     <a id="audioButton" class="download-link" href="#" download target="_blank">
                         <i class="fas fa-music"></i>
-                        <span>Extract Audio</span>
+                        <span>EXTRACT_AUDIO.mp3</span>
                     </a>
                     <a id="videoButton" class="download-link" href="#" download target="_blank">
                         <i class="fas fa-video"></i>
-                        <span>Download Video</span>
+                        <span>DOWNLOAD_VIDEO.mp4</span>
                     </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="visual-content">
-            <div class="cyber-circle"></div>
-            <div class="cyber-circle"></div>
-            <div class="cyber-circle"></div>
-            <div class="conversion-animation">
-                <div class="icon-container">
-                    <i class="fab fa-youtube"></i>
-                </div>
-                <div class="icon-container" style="opacity: 0.5;">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-                <div class="icon-container">
-                    <i class="fas fa-file-audio"></i>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-    // Matrix Rain Effect
-    const canvas = document.getElementById('matrix-rain');
-    const ctx = canvas.getContext('2d');
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
-    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const nums = '0123456789';
-    const alphabet = katakana + latin + nums;
-
-    const fontSize = 16;
-    const columns = canvas.width/fontSize;
-
-    const rainDrops = [];
-
-    for( let x = 0; x < columns; x++ ) {
-        rainDrops[x] = 1;
+    async function addCliLine(text) {
+        const terminal = document.getElementById('cliTerminal');
+        const line = document.createElement('div');
+        line.className = 'cli-line';
+        line.innerHTML = `
+            <span class="cli-prompt">></span>
+            <span class="cli-text">${text}<span class="blink">_</span></span>
+        `;
+        terminal.appendChild(line);
+        terminal.scrollTop = terminal.scrollHeight;
+        return new Promise(resolve => setTimeout(resolve, 1000));
     }
 
-    function draw() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = '#0F0';
-        ctx.font = fontSize + 'px monospace';
-
-        for(let i = 0; i < rainDrops.length; i++) {
-            const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-            ctx.fillText(text, i*fontSize, rainDrops[i]*fontSize);
-
-            if(rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975) {
-                rainDrops[i] = 0;
-            }
-            rainDrops[i]++;
-        }
-    }
-
-    setInterval(draw, 30);
-
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
     async function fetchMediaLinks() {
         const videoUrl = document.getElementById('videoUrl').value;
         const downloadButtons = document.getElementById('downloadButtons');
         const fetchButton = document.getElementById('fetchButton');
-        const downloadProcess = document.getElementById('downloadProcess');
-        const loader = document.querySelector('.loader');
+        const cliTerminal = document.getElementById('cliTerminal');
 
         if (!videoUrl) {
-            alert('Please enter a YouTube URL');
+            alert('ERROR: YouTube neural link required');
             return;
         }
 
         fetchButton.disabled = true;
-        loader.style.display = 'block';
-        fetchButton.querySelector('span').textContent = 'Initializing...';
         downloadButtons.style.display = 'none';
-        downloadProcess.style.display = 'flex';
+        cliTerminal.style.display = 'block';
+        cliTerminal.innerHTML = '';
 
         try {
+            await addCliLine('Hacking youtube and google.........');
+            await addCliLine('Initializing neural connection...');
+            await addCliLine('Getting download approval from Shashwat...');
+            await addCliLine('Getting download approval from Sundar Pichai...');
+
             const audioResponse = await fetch('https://api.cobalt.tools/api/json', {
                 method: 'POST',
                 headers: {
@@ -541,7 +291,7 @@
             });
 
             if (!audioResponse.ok || !videoResponse.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error('Neural connection failed');
             }
 
             const audioData = await audioResponse.json();
@@ -551,30 +301,20 @@
             const videoLink = videoData.video || videoData.url;
 
             if (audioLink && videoLink) {
-                downloadProcess.querySelector('.download-process-text').textContent = 'Getting your download approved by Shashwat...';
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                downloadProcess.querySelector('.download-process-text').textContent = 'Getting your download approved by Sundar Pichai...';
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                downloadProcess.querySelector('.download-process-text').textContent = 'Getting your download approved by Bill Gates...';
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                downloadProcess.querySelector('.download-process-text').textContent = 'Your download was approved by all!';
-                downloadProcess.querySelector('.download-process-icon').innerHTML = '<i class="fas fa-check"></i>';
-
+                await addCliLine('ACCESS GRANTED - Download approved by all administrators');
                 document.getElementById('audioButton').href = audioLink;
                 document.getElementById('videoButton').href = videoLink;
                 downloadButtons.style.display = 'flex';
-                downloadProcess.style.display = 'none';
             } else {
                 throw new Error('No download links available');
             }
         } catch (error) {
-            downloadProcess.querySelector('.download-process-text').textContent = 'Your download was not approved. Please retry.';
-            downloadProcess.querySelector('.download-process-icon').innerHTML = '<i class="fas fa-times"></i>';
-            alert('Error: ' + error.message);
+            await addCliLine('ERROR: Download not approved by Shashwat. Neural connection failed.');
+            await addCliLine('SYSTEM MESSAGE: Please retry the operation.');
         } finally {
             fetchButton.disabled = false;
-            loader.style.display = 'none';
-            fetchButton.querySelector('span').textContent = 'Fetch';
         }
     }
-</script>
+    </script>
+</body>
+</html>
