@@ -269,14 +269,12 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    downloadMode: "audio",
+                    filenameStyle: "basic",
                     url: videoUrl,
-                    aFormat: "mp3",
-                    isAudioOnly: true,
-                    audioBitrate: 96000,
-                    filenameStyle: "basic"
+                    videoQuality: "360"
                 }),
             });
-
             const videoResponse = await fetch('https://api.cobalt.tools/api/json', {
                 method: 'POST',
                 headers: {
@@ -284,9 +282,9 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    filenameStyle: "basic",
                     url: videoUrl,
-                    videoQuality: "1080",
-                    filenameStyle: "basic"
+                    videoQuality: "1080"
                 }),
             });
 
