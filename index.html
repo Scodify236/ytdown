@@ -15,6 +15,8 @@
             --text-secondary: #8888aa;
             --terminal-bg: rgba(0, 0, 0, 0.9);
             --accent-gradient: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary));
+            --cyber-pink: #ff2a6d;
+            --cyber-blue: #05d9e8;
         }
 
         * {
@@ -55,6 +57,8 @@
             gap: 1rem;
             position: relative;
             z-index: 1;
+            flex-direction: column;
+            align-items: center;
         }
 
         .main-content {
@@ -79,9 +83,103 @@
             animation: borderGlow 4s infinite;
         }
 
-        @keyframes borderGlow {
-            0%, 100% { border-color: rgba(0, 255, 255, 0.1); }
-            50% { border-color: rgba(0, 255, 255, 0.3); }
+        .services-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            box-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.1),
+                inset 0 0 20px rgba(0, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            animation: borderPulse 4s infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { border-color: rgba(255, 42, 109, 0.1); }
+            50% { border-color: rgba(255, 42, 109, 0.3); }
+        }
+
+        .services-title {
+            color: var(--cyber-pink);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 
+                0 0 10px rgba(255, 42, 109, 0.5),
+                0 0 20px rgba(255, 42, 109, 0.3);
+            text-align: center;
+            position: relative;
+        }
+
+        .services-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyber-pink), transparent);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .service-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(5, 217, 232, 0.2);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(5, 217, 232, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .service-item:hover {
+            transform: translateY(-2px) scale(1.05);
+            border-color: var(--cyber-blue);
+            box-shadow: 
+                0 0 15px rgba(5, 217, 232, 0.2),
+                inset 0 0 10px rgba(5, 217, 232, 0.1);
+            color: var(--cyber-blue);
+            z-index: 1;
         }
 
         .glitch-effect {
@@ -201,9 +299,6 @@
             color: #0f0;
             max-height: 250px;
             overflow-y: auto;
-            box-shadow: 
-                0 0 20px rgba(0, 255, 255, 0.1),
-                inset 0 0 10px rgba(0, 255, 255, 0.05);
         }
 
         .cli-line {
@@ -217,21 +312,11 @@
             margin-right: 0.75rem;
         }
 
-        .cli-text {
-            flex: 1;
-        }
-
         .download-buttons {
             display: none;
             gap: 1rem;
             margin-top: 1.5rem;
             flex-direction: column;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .download-link {
@@ -242,7 +327,6 @@
             font-weight: 600;
             cursor: pointer;
             text-align: center;
-            font-family: 'Courier New', monospace;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -250,25 +334,6 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .download-link::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(45deg);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            from { transform: translateX(-100%) rotate(45deg); }
-            to { transform: translateX(100%) rotate(45deg); }
         }
 
         #audioButton {
@@ -277,11 +342,6 @@
 
         #videoButton {
             background: linear-gradient(135deg, #ff00ff, #ff0080);
-        }
-
-        .download-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
         }
 
         .blink {
@@ -303,7 +363,6 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
         }
 
         .loading-text {
@@ -322,15 +381,30 @@
 
         @media (max-width: 768px) {
             .split-container {
-                flex-direction: column;
+                padding: 0.5rem;
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
-            .container {
-                padding: 1.5rem;
+            .container,
+            .services-container {
+                padding: 1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 0.5rem;
+            }
+
+            .service-item {
+                font-size: 0.7rem;
+                padding: 0.5rem;
+            }
+
+            .services-title {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -346,9 +420,9 @@
         <div class="main-content">
             <div class="container">
                 <h1 class="glitch-effect" data-text=">> CYBER DOWNLOADER_">>> CYBER DOWNLOADER_</h1>
-                <p class="subtitle">> Transform YouTube content into digital artifacts</p>
+                <p class="subtitle">> Transform digital content into local artifacts</p>
                 
-                <input type="text" id="videoUrl" placeholder="> Insert YouTube neural link" />
+                <input type="text" id="videoUrl" placeholder="> Insert neural link" />
                 
                 <button onclick="fetchMediaLinks()" id="fetchButton">
                     <i class="fas fa-terminal"></i> INITIALIZE DOWNLOAD
@@ -373,8 +447,32 @@
                 </div>
             </div>
         </div>
-    </div>
 
+        <div class="services-container">
+            <h2 class="services-title">> SUPPORTED NEURAL NETWORKS_</h2>
+            <div class="services-grid">
+                <div class="service-item">YouTube</div>
+                <div class="service-item">Facebook</div>
+                <div class="service-item">Instagram</div>
+                <div class="service-item">Twitter</div>
+                <div class="service-item">TikTok</div>
+                <div class="service-item">Twitch</div>
+                <div class="service-item">Vimeo</div>
+                <div class="service-item">Dailymotion</div>
+                <div class="service-item">Reddit</div>
+                <div class="service-item">Pinterest</div>
+                <div class="service-item">Tumblr</div>
+                <div class="service-item">VK</div>
+                <div class="service-item">Rutube</div>
+                <div class="service-item">Snapchat</div>
+                <div class="service-item">Soundcloud</div>
+                <div class="service-item">Streamable</div>
+                <div class="service-item">Bluesky</div>
+                <div class="service-item">Loom</div>
+                <div class="service-item">OK</div>
+            </div>
+        </div>
+    </div>
     <script>
     async function addCliLine(text) {
         const terminal = document.getElementById('cliTerminal');
