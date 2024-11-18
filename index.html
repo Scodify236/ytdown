@@ -8,7 +8,7 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1237614381130102"
      crossorigin="anonymous"></script>
     <style>
-        :root {
+          :root {
             --neon-primary: #0ff;
             --neon-secondary: #f0f;
             --bg-dark: #0a0a0f;
@@ -21,6 +21,114 @@
             --cyber-blue: #05d9e8;
         }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, var(--bg-dark) 21px, transparent 1%) center,
+                linear-gradient(var(--bg-dark) 21px, transparent 1%) center,
+                rgba(0, 255, 255, 0.1);
+            background-size: 22px 22px;
+            z-index: 0;
+        }
+
+        .split-container {
+            display: flex;
+            width: 100%;
+            padding: 1rem;
+            gap: 1rem;
+            position: relative;
+            z-index: 1;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-content {
+            flex: 1;
+            max-width: 600px;
+            padding: 1rem;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+        }
+
+        .container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            box-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.1),
+                inset 0 0 20px rgba(0, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            animation: borderGlow 4s infinite;
+        }
+
+        .services-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            box-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.1),
+                inset 0 0 20px rgba(0, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            animation: borderPulse 4s infinite;
+        }
+
+        /* Quality selector styles */
+        .quality-selector {
+            margin-bottom: 1.5rem;
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--text-primary);
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quality-selector:focus {
+            outline: none;
+            border-color: var(--neon-primary);
+            box-shadow: 
+                0 0 15px rgba(0, 255, 255, 0.2),
+                inset 0 0 10px rgba(0, 255, 255, 0.1);
+        }
+
+        .quality-selector option {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            padding: 0.5rem;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -426,6 +534,19 @@
                 
                 <input type="text" id="videoUrl" placeholder="> Insert neural link" />
                 
+                <!-- Add quality selector -->
+                <select class="quality-selector" id="qualitySelector">
+                    <option value="144">144p - Neural Basic</option>
+                    <option value="240">240p - Neural Enhanced</option>
+                    <option value="360">360p - Neural HD</option>
+                    <option value="480">480p - Neural HD+</option>
+                    <option value="720">720p - Neural Ultra</option>
+                    <option value="1080" selected>1080p - Neural Premium</option>
+                    <option value="1440">1440p - Neural Elite</option>
+                    <option value="2160">4K - Neural Master</option>
+                    <option value="max">8K+ - Neural Ultimate</option>
+                </select>
+                
                 <button onclick="fetchMediaLinks()" id="fetchButton">
                     <i class="fas fa-terminal"></i> INITIALIZE DOWNLOAD
                 </button>
@@ -628,6 +749,117 @@
             }
         }
         type();
+    }
+    async function addCliLine(text) {
+        const terminal = document.getElementById('cliTerminal');
+        const line = document.createElement('div');
+        line.className = 'cli-line';
+        line.innerHTML = `
+            <span class="cli-prompt">></span>
+            <span class="cli-text">${text}<span class="blink">_</span></span>
+        `;
+        terminal.appendChild(line);
+        terminal.scrollTop = terminal.scrollHeight;
+        return new Promise(resolve => setTimeout(resolve, 1000));
+    }
+
+    function playMagicSound() {
+        return new Promise((resolve) => {
+            const audio = document.getElementById('magicSound');
+            audio.play();
+            audio.onended = resolve;
+        });
+    }
+
+    async function fetchMediaLinks() {
+        const videoUrl = document.getElementById('videoUrl').value;
+        const selectedQuality = document.getElementById('qualitySelector').value;
+        const downloadButtons = document.getElementById('downloadButtons');
+        const fetchButton = document.getElementById('fetchButton');
+        const cliTerminal = document.getElementById('cliTerminal');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        if (!videoUrl) {
+            alert('ERROR: YouTube neural link required');
+            return;
+        }
+
+        fetchButton.disabled = true;
+        downloadButtons.style.display = 'none';
+        cliTerminal.style.display = 'block';
+        cliTerminal.innerHTML = '';
+        loadingOverlay.style.display = 'flex';
+
+        try {
+            await addCliLine('Establishing neural connection...');
+            await addCliLine(`Configuring neural bandwidth for ${selectedQuality}p...`);
+            await addCliLine('Getting your video ready.....');
+            await addCliLine('Accessing our mainframe server to serve you...');
+
+            const audioResponse = await fetch('https://cobalt-api.kwiatekmiki.com/', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    downloadMode: "audio",
+                    filenameStyle: "basic",
+                    url: videoUrl,
+                    videoQuality: "360"
+                }),
+            });
+
+            const videoResponse = await fetch('https://cobalt-api.kwiatekmiki.com/', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    filenameStyle: "basic",
+                    url: videoUrl,
+                    videoQuality: selectedQuality
+                }),
+            });
+
+            if (!audioResponse.ok || !videoResponse.ok) {
+                throw new Error('Neural connection failed');
+            }
+
+            const audioData = await audioResponse.json();
+            const videoData = await videoResponse.json();
+            const audioLink = audioData.audio || audioData.url;
+            const videoLink = videoData.video || videoData.url;
+
+            if (audioLink && videoLink) {
+                await addCliLine('NEURAL CONNECTION ESTABLISHED');
+                await addCliLine(`EXTRACTING ${selectedQuality}p DATA STREAM...`);
+                await addCliLine('PREPARING DOWNLOAD PROTOCOLS...');
+                
+                try {
+                    await playMagicSound();
+                } catch (error) {
+                    console.log('Sound playback failed:', error);
+                }
+
+                await addCliLine('ACCESS GRANTED - Download protocols initialized');
+                document.getElementById('audioButton').href = audioLink;
+                document.getElementById('videoButton').href = videoLink;
+                
+                downloadButtons.style.display = 'flex';
+                downloadButtons.style.animation = 'fadeIn 0.5s ease-out';
+            } else {
+                throw new Error('Data stream extraction failed');
+            }
+        } catch (error) {
+            await addCliLine('ERROR: Neural connection failed');
+            await addCliLine('SYSTEM MESSAGE: Please reinitialize download sequence');
+            console.error('Download error:', error);
+        } finally {
+            fetchButton.disabled = false;
+            loadingOverlay.style.display = 'none';
+        }
     }
 
     // Initialize loading animation
