@@ -3,876 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Media Downloader by T-Tech</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>YouTube Downloader By trishul coder</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1237614381130102"
      crossorigin="anonymous"></script>
-    <style>
-          :root {
-            --neon-primary: #0ff;
-            --neon-secondary: #f0f;
-            --bg-dark: #0a0a0f;
-            --card-bg: #151520;
-            --text-primary: #e0e0ff;
-            --text-secondary: #8888aa;
-            --terminal-bg: rgba(0, 0, 0, 0.9);
-            --accent-gradient: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary));
-            --cyber-pink: #ff2a6d;
-            --cyber-blue: #05d9e8;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Courier New', monospace;
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(90deg, var(--bg-dark) 21px, transparent 1%) center,
-                linear-gradient(var(--bg-dark) 21px, transparent 1%) center,
-                rgba(0, 255, 255, 0.1);
-            background-size: 22px 22px;
-            z-index: 0;
-        }
-
-        .split-container {
-            display: flex;
-            width: 100%;
-            padding: 1rem;
-            gap: 1rem;
-            position: relative;
-            z-index: 1;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .main-content {
-            flex: 1;
-            max-width: 600px;
-            padding: 1rem;
-            margin: 0 auto;
-            width: 100%;
-            position: relative;
-        }
-
-        .container {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 2rem;
-            border: 1px solid rgba(0, 255, 255, 0.1);
-            box-shadow: 
-                0 0 20px rgba(0, 255, 255, 0.1),
-                inset 0 0 20px rgba(0, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-            animation: borderGlow 4s infinite;
-        }
-
-        .services-container {
-            max-width: 800px;
-            width: 100%;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid rgba(0, 255, 255, 0.1);
-            box-shadow: 
-                0 0 20px rgba(0, 255, 255, 0.1),
-                inset 0 0 20px rgba(0, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-            animation: borderPulse 4s infinite;
-        }
-
-        /* Quality selector styles */
-        .quality-selector {
-            margin-bottom: 1.5rem;
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            border-radius: 8px;
-            background: rgba(0, 0, 0, 0.3);
-            color: var(--text-primary);
-            font-family: 'Courier New', monospace;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .quality-selector:focus {
-            outline: none;
-            border-color: var(--neon-primary);
-            box-shadow: 
-                0 0 15px rgba(0, 255, 255, 0.2),
-                inset 0 0 10px rgba(0, 255, 255, 0.1);
-        }
-
-        .quality-selector option {
-            background: var(--card-bg);
-            color: var(--text-primary);
-            padding: 0.5rem;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Courier New', monospace;
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(90deg, var(--bg-dark) 21px, transparent 1%) center,
-                linear-gradient(var(--bg-dark) 21px, transparent 1%) center,
-                rgba(0, 255, 255, 0.1);
-            background-size: 22px 22px;
-            z-index: 0;
-        }
-
-        .split-container {
-            display: flex;
-            width: 100%;
-            padding: 1rem;
-            gap: 1rem;
-            position: relative;
-            z-index: 1;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .main-content {
-            flex: 1;
-            max-width: 600px;
-            padding: 1rem;
-            margin: 0 auto;
-            width: 100%;
-            position: relative;
-        }
-
-        .container {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 2rem;
-            border: 1px solid rgba(0, 255, 255, 0.1);
-            box-shadow: 
-                0 0 20px rgba(0, 255, 255, 0.1),
-                inset 0 0 20px rgba(0, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-            animation: borderGlow 4s infinite;
-        }
-
-        .services-container {
-            max-width: 800px;
-            width: 100%;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid rgba(0, 255, 255, 0.1);
-            box-shadow: 
-                0 0 20px rgba(0, 255, 255, 0.1),
-                inset 0 0 20px rgba(0, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-            animation: borderPulse 4s infinite;
-        }
-
-        @keyframes borderPulse {
-            0%, 100% { border-color: rgba(255, 42, 109, 0.1); }
-            50% { border-color: rgba(255, 42, 109, 0.3); }
-        }
-
-        .services-title {
-            color: var(--cyber-pink);
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 
-                0 0 10px rgba(255, 42, 109, 0.5),
-                0 0 20px rgba(255, 42, 109, 0.3);
-            text-align: center;
-            position: relative;
-        }
-
-        .services-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--cyber-pink), transparent);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .service-item {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 0.75rem;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid rgba(5, 217, 232, 0.2);
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-item::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(5, 217, 232, 0.1),
-                transparent
-            );
-            transform: rotate(45deg);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) rotate(45deg); }
-        }
-
-        .service-item:hover {
-            transform: translateY(-2px) scale(1.05);
-            border-color: var(--cyber-blue);
-            box-shadow: 
-                0 0 15px rgba(5, 217, 232, 0.2),
-                inset 0 0 10px rgba(5, 217, 232, 0.1);
-            color: var(--cyber-blue);
-            z-index: 1;
-        }
-
-        .glitch-effect {
-            position: relative;
-            display: inline-block;
-        }
-
-        .glitch-effect::before,
-        .glitch-effect::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.8;
-        }
-
-        .glitch-effect::before {
-            animation: glitch 2s infinite;
-            color: #0ff;
-            z-index: -1;
-        }
-
-        .glitch-effect::after {
-            animation: glitch 3s infinite;
-            color: #f0f;
-            z-index: -2;
-        }
-
-        @keyframes glitch {
-            0% { transform: translate(0) }
-            20% { transform: translate(-2px, 2px) }
-            40% { transform: translate(-2px, -2px) }
-            60% { transform: translate(2px, 2px) }
-            80% { transform: translate(2px, -2px) }
-            100% { transform: translate(0) }
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            color: var(--neon-primary);
-            text-shadow: 
-                0 0 10px rgba(0, 255, 255, 0.3),
-                0 0 20px rgba(0, 255, 255, 0.2),
-                0 0 30px rgba(0, 255, 255, 0.1);
-        }
-
-        .subtitle {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        input {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            border-radius: 8px;
-            font-size: 1rem;
-            background: rgba(0, 0, 0, 0.3);
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-            font-family: 'Courier New', monospace;
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--neon-primary);
-            box-shadow: 
-                0 0 15px rgba(0, 255, 255, 0.2),
-                inset 0 0 10px rgba(0, 255, 255, 0.1);
-        }
-
-        button {
-            width: 100%;
-            padding: 1rem;
-            border: none;
-            border-radius: 8px;
-            background: var(--accent-gradient);
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Courier New', monospace;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
-        }
-
-        button:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .cli-terminal {
-            display: none;
-            background: var(--terminal-bg);
-            border: 1px solid var(--neon-primary);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-            font-family: 'Courier New', monospace;
-            font-size: 1rem;
-            color: #0f0;
-            max-height: 250px;
-            overflow-y: auto;
-        }
-
-        .cli-line {
-            margin: 0.75rem 0;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .cli-prompt {
-            color: var(--neon-primary);
-            margin-right: 0.75rem;
-        }
-
-        .download-buttons {
-            display: none;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            flex-direction: column;
-        }
-
-        .download-link {
-            text-decoration: none;
-            padding: 1rem;
-            border-radius: 8px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-        }
-
-        #audioButton {
-            background: linear-gradient(135deg, #00ff87, #0ff);
-        }
-
-        #videoButton {
-            background: linear-gradient(135deg, #ff00ff, #ff0080);
-        }
-
-        .blink {
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-
-        #loadingOverlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .loading-text {
-            color: var(--neon-primary);
-            font-size: 2rem;
-            margin-top: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        @media (max-width: 768px) {
-            .split-container {
-                padding: 0.5rem;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            .container,
-            .services-container {
-                padding: 1rem;
-            }
-
-            .services-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-                gap: 0.5rem;
-            }
-
-            .service-item {
-                font-size: 0.7rem;
-                padding: 0.5rem;
-            }
-
-            .services-title {
-                font-size: 1.2rem;
-            }
-        }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div id="loadingOverlay">
-        <div class="loading-text">INITIALIZING NEURAL LINK</div>
-    </div>
-    
-    <audio id="magicSound" src="magic.mp3"></audio>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gray-800 mb-2">YouTube Downloader</h1>
+                <p class="text-gray-600">Download videos and audio from YouTube</p>
+            </div>
 
-    <div class="split-container">
-        <div class="main-content">
-            <div class="container">
-                <h1 class="glitch-effect" data-text=">> CYBER DOWNLOADER_">>> CYBER DOWNLOADER_</h1>
-                <p class="subtitle">> Transform digital content into local artifacts</p>
-                
-                <input type="text" id="videoUrl" placeholder="> Insert neural link" />
-                
-                <!-- Add quality selector -->
-                <select class="quality-selector" id="qualitySelector">
-                    <option value="144">144p - Neural Basic</option>
-                    <option value="240">240p - Neural Enhanced</option>
-                    <option value="360">360p - Neural HD</option>
-                    <option value="480">480p - Neural HD+</option>
-                    <option value="720">720p - Neural Ultra</option>
-                    <option value="1080" selected>1080p - Neural Premium</option>
-                    <option value="1440">1440p - Neural Elite</option>
-                    <option value="2160">4K - Neural Master</option>
-                    <option value="max">8K+ - Neural Ultimate</option>
-                </select>
-                
-                <button onclick="fetchMediaLinks()" id="fetchButton">
-                    <i class="fas fa-terminal"></i> INITIALIZE DOWNLOAD
-                </button>
+            <div class="mb-8">
+                <div class="relative">
+                    <input type="url" id="url" required 
+                        class="w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pl-4 pr-12"
+                        placeholder="Paste YouTube URL here...">
+                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
 
-                <div class="cli-terminal" id="cliTerminal">
-                    <div class="cli-line">
-                        <span class="cli-prompt">></span>
-                        <span class="cli-text">Initializing system...<span class="blink">_</span></span>
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Video Options -->
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Video Options</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Quality:</label>
+                            <select id="videoQuality" class="w-full p-2 border rounded-md bg-white">
+                                <option value="144">144p</option>
+                                <option value="240">240p</option>
+                                <option value="360">360p</option>
+                                <option value="480">480p</option>
+                                <option value="720">720p</option>
+                                <option value="1080" selected>1080p</option>
+                                <option value="1440">1440p</option>
+                                <option value="2160">4K</option>
+                                <option value="max">Max</option>
+                            </select>
+                        </div>
+                        <button onclick="download('video')" 
+                            class="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                            Download Video
+                        </button>
                     </div>
                 </div>
 
-                <div class="download-buttons" id="downloadButtons">
-                    <a id="audioButton" class="download-link" href="#" download target="_blank">
-                        <i class="fas fa-music"></i>
-                        <span>EXTRACT_AUDIO.mp3</span>
-                    </a>
-                    <a id="videoButton" class="download-link" href="#" download target="_blank">
-                        <i class="fas fa-video"></i>
-                        <span>DOWNLOAD_VIDEO.mp4</span>
-                    </a>
+                <!-- Audio Options -->
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Audio Options</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Format:</label>
+                            <select id="audioFormat" class="w-full p-2 border rounded-md bg-white">
+                                <option value="best">Best</option>
+                                <option value="mp3" selected>MP3</option>
+                                <option value="ogg">OGG</option>
+                                <option value="wav">WAV</option>
+                                <option value="opus">Opus</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Bitrate:</label>
+                            <select id="audioBitrate" class="w-full p-2 border rounded-md bg-white">
+                                <option value="320">320 kbps</option>
+                                <option value="256">256 kbps</option>
+                                <option value="128" selected>128 kbps</option>
+                                <option value="96">96 kbps</option>
+                                <option value="64">64 kbps</option>
+                            </select>
+                        </div>
+                        <button onclick="download('audio')" 
+                            class="w-full bg-purple-600 text-white py-3 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors">
+                            Download Audio
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="services-container">
-            <h2 class="services-title">> SUPPORTED NEURAL NETWORKS_</h2>
-            <div class="services-grid">
-                <div class="service-item">YouTube</div>
-                <div class="service-item">Facebook</div>
-                <div class="service-item">Instagram</div>
-                <div class="service-item">Twitter</div>
-                <div class="service-item">TikTok</div>
-                <div class="service-item">Twitch</div>
-                <div class="service-item">Vimeo</div>
-                <div class="service-item">Dailymotion</div>
-                <div class="service-item">Reddit</div>
-                <div class="service-item">Pinterest</div>
-                <div class="service-item">Tumblr</div>
-                <div class="service-item">VK</div>
-                <div class="service-item">Rutube</div>
-                <div class="service-item">Snapchat</div>
-                <div class="service-item">Soundcloud</div>
-                <div class="service-item">Streamable</div>
-                <div class="service-item">Bluesky</div>
-                <div class="service-item">Loom</div>
-                <div class="service-item">OK</div>
-            </div>
+            <div id="status" class="hidden rounded-lg p-4 text-sm"></div>
         </div>
     </div>
+
     <script>
-    async function addCliLine(text) {
-        const terminal = document.getElementById('cliTerminal');
-        const line = document.createElement('div');
-        line.className = 'cli-line';
-        line.innerHTML = `
-            <span class="cli-prompt">></span>
-            <span class="cli-text">${text}<span class="blink">_</span></span>
-        `;
-        terminal.appendChild(line);
-        terminal.scrollTop = terminal.scrollHeight;
-        return new Promise(resolve => setTimeout(resolve, 1000));
-    }
+        const API_KEY = 'ce25f06d-3511-4c3a-b00e-3c7d1617860e';
+        const API_URL = 'https://cobalt.api.timelessnesses.me/';
 
-    function playMagicSound() {
-        return new Promise((resolve) => {
-            const audio = document.getElementById('magicSound');
-            audio.play();
-            audio.onended = resolve;
-        });
-    }
-
-    async function fetchMediaLinks() {
-        const videoUrl = document.getElementById('videoUrl').value;
-        const downloadButtons = document.getElementById('downloadButtons');
-        const fetchButton = document.getElementById('fetchButton');
-        const cliTerminal = document.getElementById('cliTerminal');
-        const loadingOverlay = document.getElementById('loadingOverlay');
-
-        if (!videoUrl) {
-            alert('ERROR: YouTube neural link required');
-            return;
-        }
-
-        fetchButton.disabled = true;
-        downloadButtons.style.display = 'none';
-        cliTerminal.style.display = 'block';
-        cliTerminal.innerHTML = '';
-        loadingOverlay.style.display = 'flex';
-
-        try {
-            await addCliLine('Establishing neural connection...');
-            await addCliLine('Bypassing security protocols...');
-            await addCliLine('Accessing quantum mainframe...');
-            await addCliLine('Initializing data extraction...');
-
-            const audioResponse = await fetch('https://cobalt-api.kwiatekmiki.com/', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    downloadMode: "audio",
-                    filenameStyle: "basic",
-                    url: videoUrl,
-                    videoQuality: "360"
-                }),
-            });
-            const videoResponse = await fetch('https://cobalt-api.kwiatekmiki.com/', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    filenameStyle: "basic",
-                    url: videoUrl,
-                    videoQuality: "1080"
-                }),
-            });
-
-            if (!audioResponse.ok || !videoResponse.ok) {
-                throw new Error('Neural connection failed');
+        async function download(type) {
+            const url = document.getElementById('url').value;
+            if (!url) {
+                showStatus('Please enter a YouTube URL', 'error');
+                return;
             }
 
-            const audioData = await audioResponse.json();
-            const videoData = await videoResponse.json();const audioLink = audioData.audio || audioData.url;
-            const videoLink = videoData.video || videoData.url;
+            showStatus('Processing your request...', 'processing');
 
-            if (audioLink && videoLink) {
-                await addCliLine('NEURAL CONNECTION ESTABLISHED');
-                await addCliLine('EXTRACTING DATA STREAMS...');
-                await addCliLine('PREPARING DOWNLOAD PROTOCOLS...');
-                
-                // Play the magic sound effect
-                try {
-                    await playMagicSound();
-                } catch (error) {
-                    console.log('Sound playback failed:', error);
+            const formData = {
+                url: url,
+                videoQuality: document.getElementById('videoQuality').value,
+                audioFormat: document.getElementById('audioFormat').value,
+                audioBitrate: document.getElementById('audioBitrate').value,
+                downloadMode: type === 'audio' ? 'audio' : 'auto'
+            };
+
+            try {
+                const response = await axios.post(API_URL, formData, {
+                    headers: {
+                        'Authorization': `Api-Key ${API_KEY}`,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.data.status === 'error') {
+                    showStatus(`Error: ${response.data.error.code}`, 'error');
+                    return;
                 }
 
-                // Show success message and download buttons
-                await addCliLine('ACCESS GRANTED - Download protocols initialized');
-                document.getElementById('audioButton').href = audioLink;
-                document.getElementById('videoButton').href = videoLink;
-                
-                // Add glowing animation to download buttons
-                downloadButtons.style.display = 'flex';
-                downloadButtons.style.animation = 'fadeIn 0.5s ease-out';
-            } else {
-                throw new Error('Data stream extraction failed');
-            }
-        } catch (error) {
-            await addCliLine('ERROR: Neural connection failed');
-            await addCliLine('SYSTEM MESSAGE: Please reinitialize download sequence');
-            console.error('Download error:', error);
-        } finally {
-            fetchButton.disabled = false;
-            loadingOverlay.style.display = 'none';
-        }
-    }
-
-    // Add hover effects for interactive elements
-    document.querySelectorAll('.download-link').forEach(link => {
-        link.addEventListener('mouseover', () => {
-            link.style.transform = 'translateY(-2px)';
-            link.style.boxShadow = '0 5px 15px rgba(0, 255, 255, 0.3)';
-        });
-
-        link.addEventListener('mouseout', () => {
-            link.style.transform = 'translateY(0)';
-            link.style.boxShadow = 'none';
-        });
-    });
-
-    // Add glitch effect on page load
-    document.addEventListener('DOMContentLoaded', () => {
-        const glitchElements = document.querySelectorAll('.glitch-effect');
-        glitchElements.forEach(element => {
-            element.setAttribute('data-text', element.textContent);
-        });
-    });
-
-    // Add keyboard support for better accessibility
-    document.getElementById('videoUrl').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            fetchMediaLinks();
-        }
-    });
-
-    // Add terminal typing effect
-    function typeWriter(element, text, speed = 50) {
-        let i = 0;
-        element.innerHTML = '';
-        function type() {
-            if (i < text.length) {
-                element.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(type, speed);
-            }
-        }
-        type();
-    }
-    async function addCliLine(text) {
-        const terminal = document.getElementById('cliTerminal');
-        const line = document.createElement('div');
-        line.className = 'cli-line';
-        line.innerHTML = `
-            <span class="cli-prompt">></span>
-            <span class="cli-text">${text}<span class="blink">_</span></span>
-        `;
-        terminal.appendChild(line);
-        terminal.scrollTop = terminal.scrollHeight;
-        return new Promise(resolve => setTimeout(resolve, 1000));
-    }
-
-    function playMagicSound() {
-        return new Promise((resolve) => {
-            const audio = document.getElementById('magicSound');
-            audio.play();
-            audio.onended = resolve;
-        });
-    }
-
-    async function fetchMediaLinks() {
-        const videoUrl = document.getElementById('videoUrl').value;
-        const selectedQuality = document.getElementById('qualitySelector').value;
-        const downloadButtons = document.getElementById('downloadButtons');
-        const fetchButton = document.getElementById('fetchButton');
-        const cliTerminal = document.getElementById('cliTerminal');
-        const loadingOverlay = document.getElementById('loadingOverlay');
-
-        if (!videoUrl) {
-            alert('ERROR: YouTube neural link required');
-            return;
-        }
-
-        fetchButton.disabled = true;
-        downloadButtons.style.display = 'none';
-        cliTerminal.style.display = 'block';
-        cliTerminal.innerHTML = '';
-        loadingOverlay.style.display = 'flex';
-
-        try {
-            await addCliLine('Establishing neural connection...');
-            await addCliLine(`Configuring neural bandwidth for ${selectedQuality}p...`);
-            await addCliLine('Getting your video ready.....');
-            await addCliLine('Accessing our mainframe server to serve you...');
-
-            const audioResponse = await fetch('https://cobalt-api.kwiatekmiki.com/', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    downloadMode: "audio",
-                    filenameStyle: "basic",
-                    url: videoUrl,
-                    videoQuality: "360"
-                }),
-            });
-
-            const videoResponse = await fetch('https://cobalt-api.kwiatekmiki.com/', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    filenameStyle: "basic",
-                    url: videoUrl,
-                    videoQuality: selectedQuality
-                }),
-            });
-
-            if (!audioResponse.ok || !videoResponse.ok) {
-                throw new Error('Neural connection failed');
-            }
-
-            const audioData = await audioResponse.json();
-            const videoData = await videoResponse.json();
-            const audioLink = audioData.audio || audioData.url;
-            const videoLink = videoData.video || videoData.url;
-
-            if (audioLink && videoLink) {
-                await addCliLine('NEURAL CONNECTION ESTABLISHED');
-                await addCliLine(`EXTRACTING ${selectedQuality}p DATA STREAM...`);
-                await addCliLine('PREPARING DOWNLOAD PROTOCOLS...');
-                
-                try {
-                    await playMagicSound();
-                } catch (error) {
-                    console.log('Sound playback failed:', error);
+                if (response.data.status === 'redirect' || response.data.status === 'tunnel') {
+                    showStatus('Starting download...', 'success');
+                    
+                    const link = document.createElement('a');
+                    link.href = response.data.url;
+                    link.download = response.data.filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
                 }
-
-                await addCliLine('ACCESS GRANTED - Download protocols initialized');
-                document.getElementById('audioButton').href = audioLink;
-                document.getElementById('videoButton').href = videoLink;
-                
-                downloadButtons.style.display = 'flex';
-                downloadButtons.style.animation = 'fadeIn 0.5s ease-out';
-            } else {
-                throw new Error('Data stream extraction failed');
+            } catch (error) {
+                showStatus(`Error: ${error.message}`, 'error');
             }
-        } catch (error) {
-            await addCliLine('ERROR: Neural connection failed');
-            await addCliLine('SYSTEM MESSAGE: Please reinitialize download sequence');
-            console.error('Download error:', error);
-        } finally {
-            fetchButton.disabled = false;
-            loadingOverlay.style.display = 'none';
         }
-    }
 
-    // Initialize loading animation
-    const loadingText = document.querySelector('.loading-text');
-    setInterval(() => {
-        const dots = '...';
-        const currentText = loadingText.textContent;
-        if (currentText.endsWith(dots)) {
-            loadingText.textContent = currentText.slice(0, -3);
-        } else {
-            loadingText.textContent = currentText + '.';
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.style.display = 'block';
+            
+            const classes = {
+                error: 'bg-red-100 text-red-700 border border-red-200',
+                success: 'bg-green-100 text-green-700 border border-green-200',
+                processing: 'bg-yellow-100 text-yellow-700 border border-yellow-200'
+            };
+            
+            statusDiv.className = `rounded-lg p-4 text-sm ${classes[type]}`;
+            statusDiv.textContent = message;
         }
-    }, 500);
-</script>
+    </script>
 </body>
 </html>
